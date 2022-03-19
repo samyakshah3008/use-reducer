@@ -1,16 +1,13 @@
-import { useReducer } from 'react';
 import './App.css';
+import { CartManagement } from './Cartmanagement';
 import { useCounter } from './Counter-context';
+import { useCounter2 } from './Counter2-context';
 
 function App() { 
 
   const {initialState,dispatch} = useCounter()
  
-  const reducerFunction2 = (state2,action2) => {
-        return {...state2, counter2: state2.counter2 - action2.payload2}
-  }
-
-  const [initialState2, dispatch2] = useReducer(reducerFunction2, {counter2: 1000})
+  const {initialState2, dispatch2} = useCounter2()
 
   const clickHandler = () => {
     dispatch({type: "increment", payload: 20})
@@ -30,6 +27,7 @@ function App() {
         <div>Output will be shown here</div>
         <div>{initialState.counter}</div>
         <div> {initialState2.counter2} </div>
+        <CartManagement/>
     </div>
   );
 }
