@@ -1,23 +1,15 @@
 import { useReducer } from 'react';
 import './App.css';
+import { useCounter } from './Counter-context';
 
 function App() { 
 
-  const reducerFunction = (state,action) => {
-       
-      console.log(state)
-      console.log(action)
-      // console.log(action.payload)
-
-
-      return {...state, counter: state.counter + action.payload  }
-  }
-
+  const {initialState,dispatch} = useCounter()
+ 
   const reducerFunction2 = (state2,action2) => {
         return {...state2, counter2: state2.counter2 - action2.payload2}
   }
 
-  const [initialState, dispatch] = useReducer(reducerFunction, {counter: 0}) 
   const [initialState2, dispatch2] = useReducer(reducerFunction2, {counter2: 1000})
 
   const clickHandler = () => {
