@@ -4,11 +4,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { CounterProvider } from './Counter-context';
+import { Counter2Provider } from './Counter2-context';
 
 ReactDOM.render(
   <React.StrictMode>
     <CounterProvider>
+    <Counter2Provider>
+
     <App />
+    </Counter2Provider>
     </CounterProvider>
   </React.StrictMode>,
   document.getElementById('root')
