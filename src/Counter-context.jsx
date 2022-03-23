@@ -13,7 +13,7 @@ const CounterProvider = ({children}) => {
     return (
         <CounterContext.Provider value={{initialState,dispatch}}>
             {children}
-        </CounterContext.Provider>
+        </CounterContext.Provider> 
     )
 }
 
