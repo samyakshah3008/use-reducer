@@ -52,6 +52,9 @@ export default function App() {
       case "SORT_BY":
         return { ...state, sortBy: action.payload };
 
+      case "RATINGS":
+        return { ...state, ratings: action.payload };
+
       default:
         return state;
     }
@@ -61,7 +64,8 @@ export default function App() {
     range: 1000,
     onlyInStock: false,
     fastDelivery: false,
-    sortBy: null
+    sortBy: null,
+    ratings: null
   });
 
   // For price Range
@@ -122,6 +126,26 @@ export default function App() {
 
   // End of Sorting
 
+  // start of ratings
+
+  const ratingFilter = (ratingList, ratingByList) => {
+    if (ratingByList === "4STARSABOVE") {
+      return [...ratingList].filter((item) => item.ratings >= 4);
+    }
+    if (ratingByList === "3STARSABOVE") {
+      return [...ratingList].filter((item) => item.ratings >= 3);
+    }
+    if (ratingByList === "2STARSABOVE") {
+      return [...ratingList].filter((item) => item.ratings >= 2);
+    }
+    if (ratingByList === "1STARSABOVE") {
+      return [...ratingList].filter((item) => item.ratings >= 1);
+    }
+    return ratingList;
+  };
+
+  const ratingsFilterList = ratingFilter(sortFinalList, state.ratings);
+
   return (
     <>
       <input
@@ -167,8 +191,38 @@ export default function App() {
       />
       <label> low to high </label>
 
+      <hr />
+
+      <input
+        onClick={(e) => dispatch({ type: "RATINGS", payload: "4STARSABOVE" })}
+        type="radio"
+        name="toggle2"
+      />
+      <label> 4 Stars and above </label>
+
+      <input
+        onClick={(e) => dispatch({ type: "RATINGS", payload: "3STARSABOVE" })}
+        type="radio"
+        name="toggle2"
+      />
+      <label> 3 Stars and above </label>
+
+      <input
+        onClick={(e) => dispatch({ type: "RATINGS", payload: "2STARSABOVE" })}
+        type="radio"
+        name="toggle2"
+      />
+      <label> 2 Stars and above </label>
+
+      <input
+        onClick={(e) => dispatch({ type: "RATINGS", payload: "1STARSABOVE" })}
+        type="radio"
+        name="toggle2"
+      />
+      <label> 1 Stars and above </label>
+
       <div className="App" style={{ display: "flex", flexWrap: "wrap" }}>
-        {sortFinalList.map(
+        {ratingsFilterList.map(
           ({
             id,
             name,
@@ -177,7 +231,8 @@ export default function App() {
             productName,
             inStock,
             level,
-            fastDelivery
+            fastDelivery,
+            ratings
           }) => (
             <div
               key={id}
@@ -192,6 +247,7 @@ export default function App() {
               <img src={image} width="100%" height="auto" alt={productName} />
               <h3> {name} </h3>
               <div>Rs. {price}</div>
+              <div> {ratings} stars </div>
               {inStock && <div> In Stock </div>}
               {!inStock && <div> Out of Stock </div>}
               <div>{level}</div>
